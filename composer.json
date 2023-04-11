@@ -1,0 +1,23 @@
+{
+    "name": "mania/email-handler",
+    "description": "App for handling emails",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "EmailHandler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ljubomir Stevancevic",
+            "email": "ljubomir.stevancevic@gmail.com"
+        }
+    ],
+    "require": {
+        "ramsey/uuid": "^4.7",
+        "psr/log": "^3.0",
+      "ext-pdo": "*",
+        "ext-readline": "*",
+        "phpmailer/phpmailer": "^6.8"
+    }
+}
