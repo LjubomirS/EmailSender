@@ -35,11 +35,8 @@ class SendStoreEmailController
         $emailRepository = EmailRepositoryFactory::make();
         $emailRepository->storeEmail($email);
 
-        $senderEmail = SessionController::get('user_id');
-        $senderName = SessionController::get('logged_user');
-
-//        $emailSender = new EmailSenderSmtp();
-//        $emailSender->sendEmail($recipientEmail, $title, $text);
+        $emailSender = new EmailSenderSmtp();
+        $emailSender->sendEmail($recipientEmail, $title, $text);
 
         header('Location: /index.php?action=see-email-send-page');
     }

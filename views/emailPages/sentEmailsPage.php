@@ -22,7 +22,7 @@ require_once __DIR__ . '/../header.php';
                                             <h3 class="card-title">Id: <?=$email->emailId()?></h3>
                                             <h6 class="card-subtitle mb-2 text-muted">Sent by user: id <?=$email->userId()?></h6>
                                             <h6 class="card-subtitle mb-2 text-muted">Title: <?=$email->title()?></h6>
-                                            <h6 class="card-subtitle mb-2 text-muted">Title: <?=$email->text()?></h6>
+                                            <h6 class="card-subtitle mb-2 text-muted">Text: <?=$email->text()?></h6>
                                         </div>
                                     </div>
                                 </div>
