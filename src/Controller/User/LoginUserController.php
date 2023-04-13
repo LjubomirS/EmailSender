@@ -22,7 +22,7 @@ class LoginUserController
         $userRepository = UserRepositoryFactory::make();
         $user = $userRepository->findUser($email);
 
-        $isMatched = $user && $user->password() === $password;
+        $isMatched = $user && password_verify($password, $user->password());
 
         if($isMatched){
             SessionController::set('logged_in',true);
@@ -30,7 +30,6 @@ class LoginUserController
             SessionController::set('is_admin',$user->isAdmin());
             SessionController::set('user_id',$user->userId());
             SessionController::set('email',$user->email());
-//            SessionController::set('name',$user->name());
         }else{
             header('Location: /index.php');
             die;

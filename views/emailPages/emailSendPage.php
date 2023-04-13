@@ -1,8 +1,5 @@
 <?php
 require_once __DIR__ . '/../header.php';
-//$user = $_SESSION['user'];
-//echo $user;
-
 ?>
 
 <main class="flex-shrink-0">

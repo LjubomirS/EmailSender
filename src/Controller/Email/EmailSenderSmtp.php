@@ -17,7 +17,7 @@ class EmailSenderSmtp {
         $this->mailer->SMTPAuth = true;
         $this->mailer->Username = 'test@maniapanel.win'; // korisničko ime za SMTP autentifikaciju
         $this->mailer->Password = 'O!h6?=grPGRi'; // lozinka za SMTP autentifikaciju
-        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // TLS enkripcija
+        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // enkripcija
         $this->mailer->Port = 465; // SMTP port
     }
 
@@ -32,9 +32,9 @@ class EmailSenderSmtp {
 
             // Slanje email-a
             $this->mailer->send();
-            echo 'Email je uspješno poslan.';
+            echo 'Success';
         } catch (Exception $e) {
-            echo 'Došlo je do greške prilikom slanja email-a: ', $e->getMessage();
+            echo 'Error: ', $e->getMessage();
         }
     }
 

@@ -11,13 +11,13 @@ class SendStoreEmailController
 {
     public function handle(): void
     {
-        $name = trim(filter_input(INPUT_POST, 'name') ?? '');
+        $recipientName = trim(filter_input(INPUT_POST, 'name') ?? '');
         $recipientEmail = trim(filter_input(INPUT_POST, 'recipientEmail') ?? '');
         $title = trim(filter_input(INPUT_POST, 'title') ?? '');
         $text = trim(filter_input(INPUT_POST, 'text') ?? '');
 
-        if($name === "" || $recipientEmail === "" || $title === "" || $text === "" ||
-            strlen($name) > 100 || strlen($recipientEmail) > 100 || strlen($title) > 300 || strlen($text) > 3000
+        if($recipientName === "" || $recipientEmail === "" || $title === "" || $text === "" ||
+            strlen($recipientName) > 100 || strlen($recipientEmail) > 100 || strlen($title) > 300 || strlen($text) > 3000
         ){
             header('Location: /index.php?action=see-email-send-page');
             die;
@@ -28,6 +28,8 @@ class SendStoreEmailController
         $email = new Email(
             Uuid::uuid4(),
             $userId,
+            $recipientName,
+            $recipientEmail,
             $title,
             $text
         );

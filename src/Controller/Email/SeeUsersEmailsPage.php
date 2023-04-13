@@ -2,14 +2,16 @@
 
 namespace EmailHandler\Controller\Email;
 
+use EmailHandler\Controller\SessionController;
 use EmailHandler\Factory\EmailRepositoryFactory;
 
-class SeeSentEmailsPage
+class SeeUsersEmailsPage
 {
     public function handle(): void
     {
+        $userId = SessionController::get('user_id');
         $emailRepository = EmailRepositoryFactory::make();
-        $emails = $emailRepository->findAllEmails();
+        $usersEmails = $emailRepository->findUsersEmails($userId);
 
         require_once __DIR__ . '/../../../views/EmailPages/sentEmailsPage.php';
     }

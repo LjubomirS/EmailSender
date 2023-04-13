@@ -12,17 +12,6 @@ class UserRepositoryFromPdo implements UserRepository
     }
 
     private function storeQuery(User $user) {
-//        if ($user->userId()) {
-//            return <<<SQL
-//                UPDATE users
-//                SET name=:name,
-//                    email=:email,
-//                    password=:password,
-//                    is_admin=:isAdmin
-//                WHERE user_id=:userId
-//            SQL;
-//        }
-
         return <<<SQL
             INSERT INTO users (name, email, password, is_admin)
             VALUES (:name, :email, :password, :isAdmin)
@@ -41,10 +30,6 @@ class UserRepositoryFromPdo implements UserRepository
             ':isAdmin' => $user->isAdmin()
         ];
 
-//        if ($user->userId()) {
-//            $params[':userId'] = $user->userId();
-//        }
-
         $stm->execute($params);
     }
 
@@ -61,5 +46,20 @@ class UserRepositoryFromPdo implements UserRepository
         $stm->execute();
 
         return $stm->fetch();
+    }
+
+    public function checkUser(string $email): bool
+    {
+        $stm = $this->pdo->prepare(<<<SQL
+            SELECT COUNT(*) as count
+            FROM users
+            WHERE email=:email
+        SQL);
+
+        $stm->bindParam(':email', $email);
+        $stm->execute();
+
+        $result = $stm->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
     }
 }

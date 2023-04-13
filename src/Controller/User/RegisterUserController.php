@@ -20,13 +20,21 @@ class RegisterUserController
             die;
         }
 
+        $userRepository = UserRepositoryFactory::make();
+
+        if ($userRepository->checkUser($email)) {
+            header('Location: /index.php?action=see-register-page&message=email_exists');
+            die;
+        }
+
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
         $user = new User(
             $name,
             $email,
-            $password
+            $passwordHash
         );
 
-        $userRepository = UserRepositoryFactory::make();
         $userRepository->registerUser($user);
 
         header('Location: /index.php');

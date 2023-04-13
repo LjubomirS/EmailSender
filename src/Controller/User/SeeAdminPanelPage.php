@@ -1,16 +1,16 @@
 <?php
 
-namespace EmailHandler\Controller\Email;
+namespace EmailHandler\Controller\User;
 
 use EmailHandler\Factory\EmailRepositoryFactory;
 
-class SeeSentEmailsPage
+class SeeAdminPanelPage
 {
     public function handle(): void
     {
         $emailRepository = EmailRepositoryFactory::make();
         $emails = $emailRepository->findAllEmails();
 
-        require_once __DIR__ . '/../../../views/EmailPages/sentEmailsPage.php';
+        require_once __DIR__ . '/../../../views/userPages/adminPanelPage.php';
     }
 }

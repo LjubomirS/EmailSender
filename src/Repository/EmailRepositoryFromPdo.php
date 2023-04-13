@@ -14,8 +14,15 @@ class EmailRepositoryFromPdo implements EmailRepository
 
     private function storeQuery(Email $email) {
         return <<<SQL
-            INSERT INTO emails (email_id, user_id, title, text)
-            VALUES (:emailId, :userId, :title, :text)
+            INSERT INTO emails (email_id, user_id, recipient_name, recipient_email, title, text)
+            VALUES (:emailId, :userId, :recipientName, :recipientEmail, :title, :text)
+        SQL;
+    }
+
+    private function deleteQuery() {
+        return <<<SQL
+            DELETE FROM emails 
+            WHERE email_id = :emailId
         SQL;
     }
 
@@ -27,13 +34,11 @@ class EmailRepositoryFromPdo implements EmailRepository
         $params = [
             ':emailId' => $email->emailId(),
             ':userId' => $email->userId(),
+            ':recipientName' => $email->recipientName(),
+            ':recipientEmail' => $email->recipientEmail(),
             ':title' => $email->title(),
             ':text' => $email->text()
         ];
-
-//        echo '<pre>';
-//        var_dump($params);
-//        die;
 
         $stm->execute($params);
     }
@@ -41,7 +46,7 @@ class EmailRepositoryFromPdo implements EmailRepository
     public function findAllEmails(): array
     {
         $stm = $this->pdo->prepare(<<<SQL
-            SELECT email_id, user_id, title, text
+            SELECT email_id, user_id, recipient_name, recipient_email, title, text
             FROM emails
         SQL);
 
@@ -53,11 +58,51 @@ class EmailRepositoryFromPdo implements EmailRepository
             $emailObjects[] = new Email(
                 $email['email_id'] = Uuid::fromString($email['email_id']),
                 $email['user_id'],
+                $email['recipient_name'],
+                $email['recipient_email'],
                 $email['title'],
                 $email['text']
             );
         }
 
         return $emailObjects;
+    }
+
+    public function findUsersEmails(string $userId): array
+    {
+        $stm = $this->pdo->prepare(<<<SQL
+            SELECT email_id, user_id, recipient_name, recipient_email,title, text
+            FROM emails
+            WHERE user_id = $userId
+        SQL);
+
+        $stm->execute();
+
+        $emails = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $emailObjects = [];
+        foreach ($emails as $email) {
+            $emailObjects[] = new Email(
+                $email['email_id'] = Uuid::fromString($email['email_id']),
+                $email['user_id'],
+                $email['recipient_name'],
+                $email['recipient_email'],
+                $email['title'],
+                $email['text']
+            );
+        }
+
+        return $emailObjects;
+    }
+
+    public function deleteEmail(string $emailId): void
+    {
+        $sql = $this->deleteQuery();
+        $stm = $this->pdo->prepare($sql);
+
+        $params = [
+            ':emailId' => $emailId,
+        ];
+
+        $stm->execute($params);
     }
 }

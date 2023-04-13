@@ -12,6 +12,8 @@ class Email
     public function __construct(
         private ?UuidInterface $emailId = null,
         private ?int $userId = null,
+        private string $recipientName = '',
+        private string $recipientEmail = '',
         private string $title = '',
         private string $text = '',
     )
@@ -40,6 +42,22 @@ class Email
     public function title(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return string
+     */
+    public function recipientName(): string
+    {
+        return $this->recipientName;
+    }
+
+    /**
+     * @return string
+     */
+    public function recipientEmail(): string
+    {
+        return $this->recipientEmail;
     }
 
     /**

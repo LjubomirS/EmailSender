@@ -4,13 +4,15 @@ namespace EmailHandler\Controller\Email;
 
 use EmailHandler\Factory\EmailRepositoryFactory;
 
-class SeeSentEmailsPage
+class DeleteEmailController
 {
     public function handle(): void
     {
-        $emailRepository = EmailRepositoryFactory::make();
-        $emails = $emailRepository->findAllEmails();
+        $emailId = (string)filter_input(INPUT_GET, 'emailId');
 
-        require_once __DIR__ . '/../../../views/EmailPages/sentEmailsPage.php';
+        $emailRepository = EmailRepositoryFactory::make();
+        $emailRepository->deleteEmail($emailId);
+
+        header('Location: /index.php?action=see-admin-panel-page');
     }
 }

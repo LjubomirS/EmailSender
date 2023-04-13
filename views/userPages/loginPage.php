@@ -8,7 +8,6 @@ require_once __DIR__ . '/../header.php';
         <div style="height:20px"></div>
         <div class="row align-items-start">
             <div class="col">
-
                 <form class="row g-3" method="post" action="/index?action=login-user">
                     <div class="col-auto">
                         <label for="email">Email</label>

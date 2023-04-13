@@ -8,7 +8,13 @@ require_once __DIR__ . '/../header.php';
         <div style="height:20px"></div>
         <div class="row align-items-start">
             <div class="col">
+                <?php
+                    $message = $_GET['message'] ?? '';
 
+                    if ($message === 'email_exists') {
+                        echo 'Email already exists';
+                    }
+                ?>
                 <form class="row g-3" method="post" action="/index.php?action=register-user" style="flex-direction: column;">
                     <div class="col-3">
                         <label for="name">Name</label>
