@@ -13,12 +13,12 @@ class EmailSenderSmtp {
 
         // Konfiguracija PHPMailer-a
         $this->mailer->isSMTP();
-        $this->mailer->Host = 'mail.maniapanel.win'; // smtp server adresa
+        $this->mailer->Host = '#'; // smtp server adresa
         $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = 'test@maniapanel.win'; // korisničko ime za SMTP autentifikaciju
-        $this->mailer->Password = 'O!h6?=grPGRi'; // lozinka za SMTP autentifikaciju
-        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // enkripcija
-        $this->mailer->Port = 465; // SMTP port
+        $this->mailer->Username = '#'; // korisničko ime za SMTP autentifikaciju
+        $this->mailer->Password = '#'; // lozinka za SMTP autentifikaciju
+        $this->mailer->SMTPSecure = #; // enkripcija
+        $this->mailer->Port = #; // SMTP port
     }
 
 
